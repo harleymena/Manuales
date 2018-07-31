@@ -1,0 +1,132 @@
+https://www.youtube.com/watch?v=Apbk83XL8L8
+//arrancar mongo//
+	mogod
+//iniciar shell de mongo en otra terminal//
+	mongo
+//Monstrar todas las base de datos//
+	show
+//Mostrar la BD que estoy usando//
+	db
+//Crear base de Datos//
+	use "nombreDB"
+//Crear usuario para la DB//
+	db.createUser({
+	  user: 'xxxx',						//nombre de uduario,
+	  pwd: '123',						//pass,
+	  roles: ['readWrite', 'dbAdmin']	//privilegios
+	});
+//Crear una coleccion(tabla)
+	db.createCollection('nombreTabla');
+//Muestra tablas
+	show collections
+//Mostrar los datos de la tabla
+	db.nombreTabla.find()
+//Mostrar los datos formateados
+	db.nombreTabla.find().pretty()
+//Insertar datos en la tabla
+	db.nombreTabla.insert(
+	  {
+		campo1: 'Entrada1',
+		campo2: 'Entrada2'
+	  }
+	)
+	//WriteResult({"Insert":1}) devuelve 1 si lo insertó
+//Insertar multiples datos en la tabla
+	db.nombreTabla.insert([
+	  {
+		campo1: 'Entrada3',
+		campo2: 'Entrada4'
+	  },
+	  {
+		campo1: 'Entrada5',
+		campo2: 'Entrada6'
+	  },
+	  {
+		campo1: 'Entrada7',
+		campo2: 'Entrada8'
+	  }
+	])
+//Consulta de datos
+	db.nombreTabla.find({campo1:"xxx"})
+//Actualizar campo
+	db.nombreTabla.update(
+		{campo: 'xxxx'},//primero se debe localizar el dato a modificar, se puede buscar por id
+			{//Se tiene que escribir todos los datos y tambien se puede agregar mas
+				campo1: 'EntradaX'
+				campo2: 'EntradaY'
+			})
+		
+	db.nombreTabla.update(
+		{_id: ObjectId("dfhdjhfjkdhafdjk")},
+			{
+				campo1: 'EntradaX'
+				campo2: 'EntradaY'
+			}
+		)
+//agregar campos
+	db.nombreTabla.update(
+	{_id: ObjectId("dfhdjhfjkdhafdjk")},
+		{
+			$set: {campo3: "EntradaZ"}//$set agrega un dato sin modificar nada
+		}
+		)
+	)
+//eliminar campo del objeto
+	db.nombreTabla.update(
+	{_id: ObjectId("dfhdjhfjkdhafdjk")},
+		{$unset: {campo3: 1}}//1 es true
+	)
+//incrementar un dato numerico
+	db.nombreTabla.update(
+	{_id: ObjectId("dfhdjhfjkdhafdjk")},
+		{$inc: {campo3: cantidad}}
+	)
+	//para decrementar se debe pasar un valor negativo
+//buscar dato para modificarlo y si no encuetra lo inserta
+	db.nombreTabla.update(
+	  {campo1: 'Entrada'} ,
+	  {
+		firstName: 'XXXX',
+		lastName: 'YYYYY'
+	  },
+	  { upsert: true}
+	)
+//renombrar campo
+	db.nombreTabla.update(
+	  {campo: 'Entrada'},
+	  {
+		$rename: {"campoX": "campoZ"}
+	  }
+	)
+//eliminar un dato
+	db.nombreTabla.remove({campo: "Entrada"})
+//eliminar el primer elemento que coincida con la busqueda
+	db.nombreTabla.remove({campo: "Entrada"}, {justOne: true})
+//Condicion or
+	db.nombreTabla.find({$or: [{campo1: "Entrada1"}, {campo1: "Entrada3"}]})
+//Query >
+	db.nombreTabla.find({campo: {$gt: 40}})
+//Query <
+	db.nombreTabla.find({campo: {$lt: 40}})
+//Query de rango <>
+	db.nombreTabla.find({campo: {$gt: 30, $lt: 90}})
+//Busqueda anidada
+	db.nombreTabla.find({"campoX.campoXZ": "entrada"})
+//Busueda de expresion regualr
+	db.nombreTabla.find({campo: {$regex: 'ston'}});
+//Sort de una busqueda
+	db.nombreTabla.find().sort({campo: 1});Ascendente
+	db.nombreTabla.find().sort({campo: -1});Descendente
+//Count de datos
+	db.nombreTabla.find().count();
+//Cuenta de una busqueda
+	db.nombreTabla.find({campo: "entrada"}).count();
+//delimitar las visualizaciones	
+	db.nombreTabla.find().limit(4);
+//delimitar y ordenamiento
+	db.nombreTabla.find().limit(4).sort(1);
+//forEach
+	db.nombreTabla.find().forEach( function(doc){
+			print("Campo 1" + doc.campo1);
+		}
+	);

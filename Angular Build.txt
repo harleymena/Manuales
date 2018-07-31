@@ -1,0 +1,11 @@
+https://www.youtube.com/watch?v=WriMvn-xqug&index=2&list=PLo5lAe9kQrworYq5xJWBTtzPgyOUShZnY
+//Crear repositorio de distribucion
+	ng build -prod
+//Convierte repositorio para produccion (min)
+	ng build --prod
+//Instala herramienta para publicacion online
+	npm install -g now
+//Sube al repositorio el proyecto
+//(Se debe estar dentro de dist/nombreCarpeta)
+	now	//La primera vez pedira el correo y se esperara a la confirmacion
+	now //Una vez confirmado el correo, se subira el proyecto

@@ -1,0 +1,142 @@
+https://www.youtube.com/watch?v=zH3I1DZNovk&list=PL9xYXqvLX2kMUrXTvDY6GI2hgacfy0rId
+//Configuraciones basicas
+	//Configurar nombre
+		git config --global user.name "Harley"
+	//Ver configuarcion de git
+		git config --global user.name
+	//Cambiar nombre
+		git config --global user.name "HarleyMena"
+	//Configurar correo
+		git config --global user.email "harley@gmail.com"
+	//Configurar colores de consola
+		git config --global color.ui true
+	//Lista las configuraciones de git
+		git config --global --list
+	//Salir de las pantallas
+		q
+
+//Trabajar con git dentro de la carpeta deseada
+	//Iniciar git
+		git init
+	//Muestra el estado del proyecto
+		git status
+	//Agrega archivos al proyecto git tanto al inicio como en las modificaciones
+		git add archivo.1
+		git add archivo.2
+	//Agrega todo los archivos al proyecto
+	 	git add -A
+	//Agrega mensaje al comit
+		git comit -m "Mensaje"
+	//Editar mensaje al comit en el que estoy
+		git comit --amend -m "Mensaje"
+	//Ver todos los comits creados
+	 	git log
+	//Vuelca los comits en un txt
+		git log > comits.txt
+	//Volver a un comit
+	 	git  checkout codigoSHA
+	//Mueve al ultimo comit hecho
+	 	git checkout master
+	//Borra el comit(codigoSHA) no el codigo
+		git reset --soft codigoSHA
+	//Borra los comits(codigoSHA) peero no el codigo
+		git reset --mixed
+	//Regresa al comit(codigoSHA) indicado y borra los demas comits
+		git reset --hard codigoSHA
+
+//Ramas y fusiones (Una rama es una copia del proyecto)
+	//Nos muestra las ramas que tenemos
+		git branch
+	//Nos muestra las ramas ocultas
+	git branch -a
+	//Crea una rama (cada rama es independiente una de otra)
+		git branch nombreDeRama
+	//Cmbiar de rama  (Al ubicarnos en la rama los cambios solo se haran en esta)
+		git checkout nombreDeRama
+	//Registra los cambios en la rama que estoy desde otra
+		//hay que moverse a la rama que deseamos que absorva los cambios
+		git merge ramaAbsorver
+		//puede tener dos posible respuestas
+			fast-forward=>Registra los cambios sin mas
+			manual-merge=>Se produce cuando hay un conflicto entre las ramas
+	//Crea una rama y me mueve hacia ella
+		git branch -b nombreDeRama
+	//Borra una rama
+		git branch -D nombreDeRama
+	//Tags sirven para agregar versiones a los comits
+		git tag -a v1.0 - "Mensaje"
+	//Especifica un tag a un comit
+		git tag -a v1.0 - "Mensaje" codigoSHA
+		
+//Hooks (Script que se ejecuta cuando se realizan acciones)
+	//Creacion de hook
+		touch post-comit
+	//Abre el hook par aecribir
+		nano post-comit
+		
+GitHub{
+	//publicar en github
+		crear en github repositorio nombreUsuario.github.io
+	//https (Aqui nos va apedir usuario y contraseña)
+		//Clonar un proyecto en la carpeta que estoy solo para nosotros
+			git clone dirUrl
+		//Conecta nuestro proyecto local con GitHub
+			git remote add origin urlCarpetaProyecto
+		//Comprobar coneccion
+			git remote -v
+		//Remueve el viculo entre repositorios
+			git remote remove origin
+		//Sube una rama de nuestro repositorio a GitHub
+			git push origin nombreDeRama
+		//Subir tag a GitHub
+			git push origin v1.0
+		//Sube todos los tag
+			git push origin --tags
+		
+	//SSH
+		//Generar llave ssh
+			ssh-keygen
+		//Entramos en ls carpeta .ssh
+			cd .ssh
+		//Volcamos la informacion de la llave publica
+			cat id_rsa.pub
+		//Debemos copiar la llave y pegarla en GitHub-settings-ssh keys
+		//Conectamos nuestro proyecto local con GitHub por ssh
+			git remote add origin codigoSSH
+			
+	//servidor
+		ssh direccionDominio(root@ip.com)
+	//Combina fetch y merge
+		git pull origin ramaActual
+	//Reiniciar el servidor
+		sudo service ghost restart
+		
+	//Workflow
+		//Actualizar repositorio local
+			//Nos actualiza la rama origin/master en nuestro equipo (No la rama master)
+				git fetch origin
+			//Nos actualiza la rama master con la de origin/master
+				git merge origin/master
+			//Subimos nuestra rama mater al repositorio
+				git push origin master
+		//Subir al repositorio
+			git comit -m "mensaje"
+			git push origin master
+			
+		
+		//Proyectos de terceros
+			//Nos hace un clon del repositorio
+				fork
+			//Se sube los cambio
+				git push origin master
+			//Se notifican los cambios en github {desde la pagina}
+				new pull request
+	
+	//Crear archivo .gitignore
+		touch .gitignore
+	
+	}
+
+
+
+
